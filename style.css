@@ -170,13 +170,13 @@ body {
 }
 
 .footer-info h2 {
-  font-size: clamp(70px, 4vw, 60px); /* было clamp(60px, 4vw, 36px) — min был больше max, поэтому браузер всегда брал 60px и текст не ужимался */
+  font-size: clamp(45px, 4vw, 60px); /* было clamp(60px, 4vw, 36px) — min был больше max, поэтому браузер всегда брал 60px и текст не ужимался */
   margin-bottom: 20px;
   overflow-wrap: break-word;
 }
 
 .footer-info .email {
-  font-size: clamp(45px, 2.2vw, 40px); /* раньше был жёсткий 40px без адаптации под ширину экрана */
+  font-size: clamp(25px, 2.2vw, 40px); /* раньше был жёсткий 40px без адаптации под ширину экрана */
   color: #000000;
   text-decoration: none;
   display: block;
