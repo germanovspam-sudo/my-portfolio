@@ -1,0 +1,258 @@
+/* 1. Сброс дефолтных отступов браузера */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 0 24px;
+  overflow-x: hidden; /* страховка от горизонтального скролла */
+}
+
+/* 2. Адаптивный Контейнер галереи */
+.container {
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 0;
+}
+
+/* Сетка Grid */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  align-items: stretch; /* Гарантирует, что обе колонки (левая и правая) одинаковой высоты */
+}
+
+/* Базовые стили для карточек + нейтральная серая подложка */
+.project-item {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+  background-color: #f5f5f5; /* Базовая серая подложка */
+}
+
+/* Специфический класс для черного фона (под мини-колонку) */
+.project-item.black-bg {
+  background-color: #000000;
+}
+
+/* Стандартные блоки — строгие квадраты 1:1 */
+.project-item.square {
+  aspect-ratio: 1 / 1;
+}
+
+/* ИСПРАВЛЕНО: Картинки и видео теперь НЕ РАСТЯГИВАЮТСЯ и НЕ ОБРЕЗАЮТСЯ */
+.project-item img,
+.project-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Сохраняет оригинальные пропорции рендеров на 100% */
+  display: block;
+}
+
+/* Главные большие горизонтальные блоки (16:9) */
+.project-item.main-video {
+  aspect-ratio: 16 / 9;
+}
+
+.project-item.main-video video,
+.project-item.main-video img {
+  object-fit: cover; /* Для больших баннеров на всю ширину оставляем cover */
+}
+
+/* Стили для комбинированного слайд-шоу студии */
+.project-item.timed-slideshow {
+  aspect-ratio: 16 / 9;
+}
+
+.timed-slideshow .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.timed-slideshow .slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Элементы во всю ширину */
+.project-item.wide {
+  grid-column: span 2;
+}
+
+/* Фикс высоты для широких картинок */
+.project-item.wide.layout-fix {
+  aspect-ratio: 16 / 9;
+}
+
+.project-item.wide.layout-fix img {
+  object-fit: cover;
+}
+
+/* Отдельный широкий блок, но строго 1:1, без обрезки — для важной картинки */
+.project-item.wide.square-full {
+  aspect-ratio: 1 / 1;
+}
+
+.project-item.wide.square-full img {
+  object-fit: contain; /* показываем картинку целиком, без кропа */
+}
+
+/* Большая вертикальная колонка занимает ровно 2 строки по высоте */
+.project-item.tall {
+  grid-row: span 2;
+  height: 100%;
+}
+
+/* Группа для мелких кабелей */
+.project-item-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sub-item {
+  flex: 1;
+}
+
+/* 3. Адаптивный Подвал (Footer) */
+.footer {
+  display: flex;
+  flex-direction: row; /* Картинка слева, текст справа */
+  align-items: center;
+  max-width: 1360px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 0 120px 0; /* Верхний отступ 32px — как gap между блоками галереи */
+  gap: 32px;           /* Зазор как в галерее */
+}
+
+.footer-profile {
+  flex: 0 1 50%;         /* линейно масштабируется вместе с контейнером */
+  max-width: 667px;      /* не разрастается больше исходного размера */
+  aspect-ratio: 1 / 1;   /* всегда квадрат, как остальные square-блоки */
+  min-width: 0;          /* разрешаем ужиматься ниже контента */
+}
+
+.footer-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+}
+
+/* Блок с текстом центрируется в оставшемся пространстве */
+.footer-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.footer-info h2 {
+  font-size: clamp(70px, 4vw, 60px); /* было clamp(60px, 4vw, 36px) — min был больше max, поэтому браузер всегда брал 60px и текст не ужимался */
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+}
+
+.footer-info .email {
+  font-size: clamp(45px, 2.2vw, 40px); /* раньше был жёсткий 40px без адаптации под ширину экрана */
+  color: #000000;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.socials {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+/* =======================================================
+   МЕДИА-ЗАПРОСЫ
+   ======================================================= */
+
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-item.wide, 
+  .project-item.tall,
+  .project-item.square,
+  .project-item.wide.layout-fix,
+  .project-item.wide.square-full {
+    grid-column: span 1;
+    grid-row: auto;
+    aspect-ratio: 1 / 1;
+  }
+  
+  .project-item.main-video,
+  .project-item.timed-slideshow {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* На мобилках эти карточки сжимаются в квадрат,
+     но исходные картинки вытянутые/широкие — чтобы их не обрезало,
+     переключаем на contain (картинка целиком, с полями подложки по краям) */
+  .project-item.tall img,
+  .project-item.tall video,
+  .project-item.wide.layout-fix img,
+  .project-item.wide.layout-fix video {
+    object-fit: contain;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    padding-bottom: 60px;
+  }
+
+  .footer-profile {
+    max-width: 100%;
+    flex-basis: auto;
+  }
+
+  .footer-avatar {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 30px; /* как у остальных карточек в галерее */
+  }
+}

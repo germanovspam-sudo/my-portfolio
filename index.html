@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="gallery">
+            
+            <div class="project-item wide main-video">
+                <video src="Video/video1.mp4" autoplay loop muted playsinline></video>
+            </div>
+
+            <div class="project-item square">
+                <img src="images/Shoyt_4-6 1.png" alt="Pepe Mug">
+            </div>
+            <div class="project-item square">
+                <img src="images/Shoyt_6 1.png" alt="Moai">
+            </div>
+
+            <div class="project-item square">
+                <img src="images/Shoyt_3-2 1.png" alt="Статуя">
+            </div>
+            <div class="project-item square">
+                <img src="images/Shoyt_7 1.png" alt="Книги">
+            </div>
+
+            <div class="project-item wide timed-slideshow">
+                <img src="images/IMG_20231208_164435685 2.png" alt="Студия 1" class="slide active">
+                <img src="images/IMG_20231114_131311656 1.png" alt="Студия 2" class="slide">
+                <video src="Video/VID_20231114_123540973.mp4" muted playsinline class="slide"></video>
+            </div>
+
+            <div class="project-item square">
+                <img src="images/1(12) 1.png" alt="Бумбокс">
+            </div>
+
+            <div class="project-item tall">
+                <img src="images/1(31) 2.png" alt="Большая колонка">
+            </div>
+
+            <div class="project-item square black-bg">
+                <video src="Video/Анимация_ТТ_М3_Мини_2.mp4" autoplay loop muted playsinline></video>
+            </div>
+
+            <div class="project-item square">
+                <img src="images/1(18) 1.png" alt="Синие наушники">
+            </div>
+
+            <div class="project-item square">
+                <img src="images/1(41) 1.png" alt="Динамик">
+            </div>
+            <div class="project-item wide layout-fix">
+                <img src="images/1(33) 1.png" alt="Усилитель Молния">
+            </div>
+
+            <div class="project-item square">
+                <img src="images/1(20) 1.png" alt="Наушники">
+            </div>
+            <div class="project-item square">
+    <video src="Video/Анимация ТТ М5.mp4" autoplay loop muted playsinline></video>
+</div>
+
+            <div class="project-item wide main-video">
+                <img src="images/1(15) 1.png" alt="Взрыв схема динамика">
+            </div>
+
+            <div class="project-item square">
+    <video src="Video/Взрыв_схема_ТТ М3.mp4" autoplay loop muted playsinline></video>
+</div>
+            <div class="project-item square">
+                <img src="images/1(44) 1.png" alt="Красный динамик">
+            </div>
+
+            <div class="project-item wide square-full">
+                <img src="images/1(75) 1.png" alt="Провод круглый">
+            </div> 
+
+                        <div class="project-item tall">
+                <img src="images/Mask group-2.png" alt="Большая колонка">
+            </div> 
+
+             <div class="project-item square">
+                <img src="images/Mask group-1.png" alt="Бумбокс">
+            </div>
+
+            <div class="project-item square">
+                <img src="images/Mask group.png" alt="Бумбокс">
+            </div>
+
+        </section>
+    </main>
+
+ <footer class="footer"> <div class="footer-profile"> <img src="Video/sticker.gif" alt="Sticker" class="footer-avatar"> </div> <div class="footer-info"> <h2>+7 914 865 46 86</h2> <a href="mailto:germanov.ask@gmail.com" class="email">germanov.ask@gmail.com</a> </div> </footer> <script> // Скрипт ниже не трогаем, он оживляет слайдер сверху
+        const slides = document.querySelectorAll('.timed-slideshow .slide');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showNextSlide() {
+            slides[currentSlide].classList.remove('active');
+            
+            if (slides[currentSlide].tagName === 'VIDEO') {
+                slides[currentSlide].pause();
+                slides[currentSlide].currentTime = 0;
+            }
+
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            const nextSlide = slides[currentSlide];
+            nextSlide.classList.add('active');
+
+            if (nextSlide.tagName === 'VIDEO') {
+                clearInterval(slideInterval);
+                nextSlide.play().catch(err => console.log("Браузер заблокировал автоплей:", err));
+                nextSlide.onended = () => {
+                    showNextSlide();
+                    startSlideshow();
+                };
+            }
+        }
+
+        function startSlideshow() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(showNextSlide, 2000);
+        }
+
+        startSlideshow();
+    </script>
+
+</body>
+</html>
